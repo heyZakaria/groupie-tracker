@@ -5,22 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hello Man!</title>
 </head>
+
 <body>
+    <h1>Hello Men!</h1>
+<ul>
+    {{range .}}
+    <li>
+        {{range .}}
+        {{index . 1}}
+        
+    </li>
+    {{end}}
+
+
+    {{end}}
+</ul>
+
+</body>
+<!-- <body>
     
     <p>My ID is  {{ .ID}} </p>
-    <p>My Name {{ .Name}} </p>
     <p>My Image <img src="{{.Image}}" alt="Image"> </p> 
+    <p>My Name {{ .Name}} </p>
     <p>Members {{ .Members}} </p>
     <p>Start Date  {{ .CreationDate}} </p>
+    <p>FirstAlbum  {{ .FirstAlbum}} </p>
+    <p>Locations  {{ .Locations}} </p>
+    <p>ConcertDates {{ .ConcertDates}} </p>
+    <p> Relations {{ .Relations}} </p>
     <hr>
     
     
 
-
-    <!-- <p>My Image </p>{{.Image}}
-    <p>My Name is</p>{{.Name}} 
-     <p>My Friends</p>{{.Members}}
-    <p>Creation Date</p>{{.CreationDate}} -->
     
-</body>
+</body> -->
 </html>

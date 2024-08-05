@@ -48,8 +48,11 @@ func GetArtistes(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _,v := range ArtisteData{
+
+	parsed.ExecuteTemplate(w, "index.html",ArtisteData)
+
+	/* for _,v := range ArtisteData{
 
 		parsed.ExecuteTemplate(w, "index.html",v)
-	}
+	} */
 }
