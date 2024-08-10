@@ -6,21 +6,23 @@ import (
 	"net/http"
 )
 
-type data struct {
+type urls struct {
 	Artists   string `json:"artists"`
 	Locations string `json:"locations"`
 	Dates     string `json:"dates"`
 	Relation  string `json:"relation"`
 }
 
-var MyData data
+var MyApi urls
 
-func GetApi() {
-	url := "https://groupietrackers.herokuapp.com/api"
+func GetApi(url string) {
+	
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	json.NewDecoder(response.Body).Decode(&MyData)
+	json.NewDecoder(response.Body).Decode(&MyApi)
+	defer response.Body.Close()
+	
 }
