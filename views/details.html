@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style.css">
+    <title>{{.Artist.Name}} - Artist Details</title>
+</head>
+<body>
+    <div class="detailsContainer">
+        <div class="image-section">
+            <img src="{{.Artist.Images}}" alt="Image of {{.Artist.Name}}">
+        </div>
+
+        <div class="details-section">
+            <p>
+                <strong>Name:</strong> {{.Artist.Name}}
+            </p>
+            <p>
+                <strong>Members:</strong> {{range .Artist.Members}}{{.}}, {{end}}
+            </p>
+            <p>
+                <strong>Creation Date:</strong> {{.Artist.CreationDate}}
+            </p>
+            <p>
+                <strong>First Album:</strong> {{.Artist.FirstAlbum}}
+            </p>
+            
+            <h2>Concert locations and dates:</h2>
+            {{range $location, $dates := .Relations}}
+                <div>
+                    <strong>{{$location}}</strong>
+                    <ul>
+                        {{range $dates}}
+                            <!-- <span> is used here to apply consistent styling to each date. It ensures that each date is properly formatted and displayed on its own line if needed. -->
+                            <li><span>{{.}}</span></li>
+                        {{end}}
+                    </ul>
+                    <br>
+                </div>
+            {{end}}
+        </div>
+
+        <!-- Move the form section here to the bottom of the container -->
+        <div class="form-section">
+            <form action="/" method="GET">
+                <button type="submit">Return To Home</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

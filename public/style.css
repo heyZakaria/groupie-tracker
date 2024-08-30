@@ -1,0 +1,183 @@
+body {
+    background-image: radial-gradient(circle, #000000 0%, #8B4513 100%);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap; /* Allows the divs to wrap to the next line */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.box {
+    overflow: hidden;
+    height: 350px;
+    border-radius: 10px;
+    width: 350px; /* Ensures two boxes fit side by side with some space between */
+    background-color: #4B2C20; /* A dark brown shade */
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Adds some space between rows */
+    display: flex; /* Enables Flexbox on the .box */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    text-align: center; /* Centers text inside the box */
+    border: 1px solid #ccc;
+    margin: 10px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.box:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.artist-link {
+    text-decoration: none;
+    color: #ffffff !important;
+    display: block;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.artist-link:hover {
+    color: #007bff !important; 
+    transform: scale(1.05);
+}
+
+.artist-link img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.artist-link p {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+
+
+.ret {
+    color: red;
+    font-size: large;
+}
+
+.centredBody {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.artist-link {
+    display: block; /* Makes the link a block element to ensure it covers the whole artist block */
+    color: inherit; /* Inherit color from parent to avoid link color changes */
+    text-decoration: none; /* Remove underline from the link */
+    height: 100%; /* Ensure the link covers the entire height of the block */
+}
+
+/* Center the form on the page */
+form {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+/* Style the button */
+button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 12px 24px; /* Padding around the text */
+    font-size: 16px; /* Increase font size */
+    border: none; /* Remove border */
+    border-radius: 8px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Change background color on hover */
+button:hover {
+    background-color: #45a049;
+}
+
+/* Additional styling for focus */
+button:focus {
+    outline: none; /* Remove outline on focus */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+}
+
+.detailsContainer {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+    padding: 20px;
+}
+.image-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.image-section img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+.details-section {
+    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+.details-section h2 {
+    margin-top: 0;
+}
+.details-section p {
+    margin: 10px 0;
+}
+.details-section strong {
+    display: block;
+    margin-bottom: 5px;
+}
+.details-section {
+    overflow: hidden; /* Ensures the container handles overflow gracefully */
+}
+
+.details-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.details-section ul li {
+    display: inline-block; /* Allows <li> to break to the next line if needed */
+    margin-right: 10px; /* Adds space between the list items */
+    white-space: nowrap; /* Prevents breaking within the <li> content */
+}
+
+.details-section ul li span {
+    display: inline; /* Makes the span content inline with <li> */
+}
+
+.form-section {
+    text-align: center;
+    margin-top: 20px;
+}
+.form-section button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.form-section button:hover {
+    background-color: #0056b3;
+}
+
+#err {
+    color: white;
+}

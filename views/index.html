@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style.css">
+    <title>Artists</title>
+</head>
+<body>
+    <div class="container">
+        {{range .}}
+        <div class="box">
+            <a href="/Artist?Id={{.Id}}" class="artist-link">
+            <p>
+                <strong>{{.Name}}</strong>
+            </p>
+              
+            <p><img src="{{.Images}}"></p>
+
+            <p>
+                <strong>Creation date:</strong> {{.CreationDate}}<br>
+            </p>    
+        </div>
+        {{end}}
+    </div>
+</body>
+</html>
