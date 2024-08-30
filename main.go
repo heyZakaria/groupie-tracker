@@ -2,20 +2,23 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
-	"groupie-tracker/handlers"
+	Music "groupietracker/packages/funcs"
 )
 
-const port = "8080"
+const (
+	api = "https://groupietrackers.herokuapp.com/api"
+)
 
 func main() {
-	fmt.Println("http://localhost:" + port + "/")
-	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
-	http.HandleFunc("/", handlers.HomePageHandler)
-	http.HandleFunc("/Artist", handlers.ArtistDetails)
-	if err := http.ListenAndServe(":"+port, nil); err != nil {
-		log.Fatalf("Failed to start server: %v", err)
-	}
+	fmt.Println("http://localhost:3040")
+
+	Music.GetApi(api)
+
+	http.Handle("/packages/public/", http.StripPrefix("/packages/public/", http.FileServer(http.Dir("packages/public"))))
+
+	http.HandleFunc("/", Music.GetArtists)
+
+	http.ListenAndServe(":3040", nil)
 }

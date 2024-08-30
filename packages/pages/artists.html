@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/packages/public/style.css">
+
+    <title>Hello Man!</title>
+</head>
+<body>
+
+<div class="image-section">
+    <img src="{{.Image}}" alt="Image of {{.Name}}">
+</div>
+
+<div class="detailsContainer"> 
+    
+    <div class="details-section">
+        <p><b>Name:</b> {{.Name}}</p><br>
+        <b>Members:</b>
+        <ul>
+            {{range .Members}}
+                <li><span>{{.}}</span></li>
+            {{end}}
+        </ul>
+        <p><b>Creation Date:</b> {{.CreationDate}}</p>
+        <p><b>First Album:</b> {{.FirstAlbum}}</p>
+    </div>
+
+    <div class="details-section">
+        <b>Locations:</b>
+        <ul>
+            {{range .Location.Locations}}
+                <li><span>{{.}}</span></li>
+            {{end}}
+        </ul>    
+        <b>Dates:</b>
+        <ul>
+            {{range .Date.Dates}}
+                <li><span>{{.}}</span></li>
+            {{end}}
+        </ul>    
+    </div>
+
+    <div class="details-section">
+        <b>Concert locations and dates:</b><br>
+        {{range $location, $dates := .DatesLocations}}
+            <b>{{$location}}</b>
+            <ul>
+                {{range $dates}}
+                    <li>{{.}}</li>
+                {{end}}
+            </ul> 
+        {{end}}
+    </div>
+</div>
+
+
+<!-- Move the form section here to the bottom of the container -->
+<div class="button-section">
+    <form action="/" method="GET">
+        <button type="submit">Return To Home</button>
+    </form>
+</div>
+
+</body>
+
+</html>

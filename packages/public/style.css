@@ -110,61 +110,55 @@ button:focus {
 }
 
 .detailsContainer {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
 }
-.image-section {
-    text-align: center;
-    margin-bottom: 20px;
-}
-.image-section img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
+
 .details-section {
+    display: flex;
+    flex-direction: column;
     background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+    min-width: 300px;
 }
-.details-section h2 {
-    margin-top: 0;
+
+.image-section {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    margin: 10px;
 }
-.details-section p {
-    margin: 10px 0;
-}
-.details-section strong {
-    display: block;
-    margin-bottom: 5px;
-}
+
 .details-section {
-    overflow: hidden; /* Ensures the container handles overflow gracefully */
+    flex: 1 1 30%; /* Each details section takes up 30% of the container */
 }
 
 .details-section ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
+    padding-left: 20px; /* Indent list items */
 }
 
-.details-section ul li {
-    display: inline-block; /* Allows <li> to break to the next line if needed */
-    margin-right: 10px; /* Adds space between the list items */
-    white-space: nowrap; /* Prevents breaking within the <li> content */
+.details-section h2 {
+    margin-bottom: 10px;
 }
 
-.details-section ul li span {
-    display: inline; /* Makes the span content inline with <li> */
+.details-section p {
+    margin: 5px 0; /* Add margin between paragraphs */
 }
 
-.form-section {
+
+
+
+.button-section {
     text-align: center;
     margin-top: 20px;
 }
-.form-section button {
+.button-section button {
     background-color: #007BFF;
     color: #fff;
     border: none;
@@ -174,7 +168,7 @@ button:focus {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-.form-section button:hover {
+.button-section button:hover {
     background-color: #0056b3;
 }
 
