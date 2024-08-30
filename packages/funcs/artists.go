@@ -27,13 +27,13 @@ func GetApi(api string) {
 }
 
 func GetArtists(w http.ResponseWriter, r *http.Request) {
-	//Check the existance of error.html template firstly
+	// Check the existance of error.html template firstly
 	tmp, err := template.ParseFiles("packages/pages/error.html")
 	if err != nil {
 		http.Error(w, "The error page not found: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
-	
+
 	if r.Method != http.MethodGet {
 		renderErrorPage(w, http.StatusBadRequest, "Bad Request")
 		return
@@ -68,8 +68,7 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 
 		Id, err := strconv.Atoi(StrId)
 		if err != nil {
-			fmt.Fprint(w, "Page Not Found ", http.StatusNotFound)
-			fmt.Println(err, Id)
+			renderErrorPage(w, http.StatusNotFound, "Page Not Found")
 			return
 		}
 		if Id < 1 || Id > 52 {
