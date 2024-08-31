@@ -49,6 +49,11 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 			renderErrorPage(w, http.StatusInternalServerError, "Failed to decode artist data")
 			return
 		}
+		var ln int
+		for i, v := range Artist {
+			ln = len(v.Members)
+			Artist[i].Num = ln
+		}
 	}
 
 	// Check if the request is for the home page or a specific artist

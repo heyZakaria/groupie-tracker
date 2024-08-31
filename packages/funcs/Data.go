@@ -19,6 +19,7 @@ type Artists struct {
 	LocationsURL    string   `json:"locations"`
 	ConcertDatesURL string   `json:"concertDates"`
 	RelationsURL    string   `json:"relations"`
+	Num             int
 
 	Location Location
 	Date     Date
