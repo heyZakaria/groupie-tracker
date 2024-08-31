@@ -19,6 +19,7 @@ func main() {
 	http.Handle("/packages/public/", http.StripPrefix("/packages/public/", http.FileServer(http.Dir("packages/public"))))
 
 	http.HandleFunc("/", Music.GetArtists)
+	http.HandleFunc("/artist", Music.GetArtist)
 
 	http.ListenAndServe(":3040", nil)
 }
