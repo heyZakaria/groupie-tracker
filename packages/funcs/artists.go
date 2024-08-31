@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"strconv"
+	"strings"
 	"text/template"
 )
 
@@ -26,73 +27,64 @@ func GetApi(api string) {
 }
 
 func GetArtists(w http.ResponseWriter, r *http.Request) {
-	// Check the existance of error.html template firstly
 	tmp, err := template.ParseFiles("packages/pages/error.html")
 	if err != nil {
 		http.Error(w, "The error page not found: Internal Server Error", http.StatusInternalServerError)
 		return
 	}
+	// Check if the artist data is already populated
+	if len(Artist) == 0 {
+		// Fetch the artist data from the API if not populated
+		artistUrl := Urls.ArtistsUrl
+		artisteRes, err := http.Get(artistUrl)
+		if err != nil {
+			renderErrorPage(w, http.StatusInternalServerError, "Failed to fetch artist data")
+			return
+		}
 
-	if r.Method != http.MethodGet {
-		renderErrorPage(w, http.StatusBadRequest, "Bad Request")
-		return
+		defer artisteRes.Body.Close()
+
+		err = json.NewDecoder(artisteRes.Body).Decode(&Artist)
+		if err != nil {
+			renderErrorPage(w, http.StatusInternalServerError, "Failed to decode artist data")
+			return
+		}
 	}
 
-	artistUrl := Urls.ArtistsUrl
-	artisteRes, err := http.Get(artistUrl)
-	if err != nil {
-		log.Fatal(err)
-	}
+	// Check if the request is for the home page or a specific artist
+	if r.URL.Path == "/" {
+		// Serve the homepage
+		tmp, err = template.ParseFiles("packages/pages/index.html")
+		if err != nil {
+			renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
 
-	json.NewDecoder(artisteRes.Body).Decode(&Artist)
-	defer artisteRes.Body.Close()
+		err = tmp.Execute(w, Artist)
+		if err != nil {
+			renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
+			return
+		}
+	} else if strings.Contains(r.URL.Path, "/artist/") {
+		// Handle artist-specific page
+		StrId := r.URL.Path[len("/artist/"):]
 
-	tmp, err = template.ParseFiles("packages/pages/index.html")
-	if err != nil {
-		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
-		return
-	}
+		Id, err := strconv.Atoi(StrId)
+		if err != nil {
+			renderErrorPage(w, http.StatusNotFound, "Invalid artist ID")
+			return
+		}
+		if Id < 1 || Id > len(Artist) {
+			renderErrorPage(w, http.StatusNotFound, "Artist not found")
+			return
+		}
 
-	err = tmp.Execute(w, Artist)
-	if err != nil {
-		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
-		return
-	}
-}
-
-func A(w http.ResponseWriter, r *http.Request) {
-	// Check the existance of error.html template firstly
-
-	if r.Method != http.MethodGet {
-		renderErrorPage(w, http.StatusBadRequest, "Bad Request")
-		return
-	}
-
-	artistUrl := Urls.ArtistsUrl
-	artisteRes, err := http.Get(artistUrl)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	json.NewDecoder(artisteRes.Body).Decode(&Artist)
-	defer artisteRes.Body.Close()
-}
-
-func GetArtist(w http.ResponseWriter, r *http.Request) {
-	A(w, r)
-
-	StrId := r.URL.Query().Get("Id")
-	Id, err := strconv.Atoi(StrId)
-	if err != nil {
-		renderErrorPage(w, http.StatusNotFound, "Page Noot Found")
-		return
-	}
-	if Id < 1 || Id > 52 {
+		FetchArtistData(Id, w)
+	} else {
+		// Handle other routes as 404
 		renderErrorPage(w, http.StatusNotFound, "Page Not Found")
 		return
 	}
-
-	FetchArtistData(Id, w)
 }
 
 func FetchArtistData(Id int, w http.ResponseWriter) {
@@ -153,12 +145,10 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 
 func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 	w.WriteHeader(statusCode)
-
 	errorData := ErrorData{
 		StatusCode: statusCode,
 		Message:    message,
 	}
-
 	tmpl, err := template.ParseFiles("packages/pages/error.html")
 	if err != nil {
 		http.Error(w, "Error loading error page", http.StatusInternalServerError)
