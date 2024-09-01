@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/packages/public/style.css">
+    <link rel="stylesheet" href="/packages/public/error.css">
     <title>Error</title>
 </head>
 <body class="centredBody">
     <h1 id="err">Error: {{.StatusCode}}</h1>
     <h2 id="err">{{.Message}}</h2>
-    <form action="/" method="GET">
-        <button type="submit">Return To Home</button>
-    </form>
+    <div class="button-section">
+
+        <form action="/" method="GET">
+            <button type="submit">Back To Home</button>
+        </form>
+    </div>
 </body>
 </html>

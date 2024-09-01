@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/packages/public/style.css">
+    <link rel="stylesheet" href="/packages/public/artist.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
@@ -11,14 +11,15 @@
 </head>
 <body>
 
-<div class="image-section">
-    <img src="{{.Image}}" alt="Image of {{.Name}}">
-</div>
+
 
 <div class="detailsContainer"> 
-    
+       
     <div class="details-section">
-        <p><b>Name:</b> {{.Name}}</p><br>
+        <div class="image-section">
+            <img src="{{.Image}}" alt="Image of {{.Name}}">
+        </div> 
+        <p><b></b> {{.Name}}</p><br>
         <b>Members:</b>
         <ul>
             {{range .Members}}
@@ -45,7 +46,7 @@
     </div>
 
     <div class="details-section">
-        <b>Concert locations and dates:</b><br>
+        <b>Realtions:</b><br>
         {{range $location, $dates := .DatesLocations}}
             <b>{{$location}}</b>
             <ul>
@@ -61,7 +62,7 @@
 <!-- Move the form section here to the bottom of the container -->
 <div class="button-section">
     <form action="/" method="GET">
-        <button type="submit">Return To Home</button>
+        <button type="submit">Back To Home</button>
     </form>
 </div>
 

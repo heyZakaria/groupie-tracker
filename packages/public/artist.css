@@ -1,0 +1,99 @@
+body {
+    font-family: "New Amsterdam", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    background-image: radial-gradient(circle, #000000 0%, #0f3300 100%);
+}
+@media (min-width: 769px) {
+    
+
+
+
+.detailsContainer {
+
+    display: flex;
+    text-align: left;
+    margin: 20px;
+    color: #000000;
+}
+
+.details-section {
+    display: flex;
+    flex-direction: column;
+    background: #35ff03; 
+    padding: 30px;
+    margin: 10px;
+    min-width: 300px;
+
+}
+
+.details-section li{
+    list-style-type: square;
+
+}
+
+
+.details-section {
+    flex: 1 1 30%; /* Each details section takes up 30% of the container first 1 is for flex-grow and second id for flex-shrink*/
+}
+
+
+
+.details-section h2 {
+    margin-bottom: 10px;
+}
+
+.details-section p {
+    margin: 5px 0; /* Add margin between paragraphs */
+}
+
+
+.button-section {
+    text-align: center;
+    margin-top: 20px;
+}
+.button-section button {
+    background-color: #35ff03;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+.button-section button:hover {
+    background-color: #eeeeee;
+}
+
+}
+
+
+@media (max-width: 769px) {
+
+   
+.details-section li{
+
+    list-style-type: none;
+}
+
+.button-section {
+    text-align: center;
+    margin-top: 10px;
+}
+.button-section button {
+    background-color: #35ff03;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+
+}
