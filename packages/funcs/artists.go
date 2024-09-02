@@ -183,7 +183,7 @@ func GeocodeLocations(l string, w http.ResponseWriter) {
 		}
 	}
 
-	GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + l + "&format=json&apiKey=ab95d9aafa1d45449323898be803875e"
+	GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + l + "&limit=1&format=json&apiKey=ab95d9aafa1d45449323898be803875e"
 	GeoResp, err := http.Get(GeocodeApi)
 	if err != nil {
 		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
@@ -193,6 +193,8 @@ func GeocodeLocations(l string, w http.ResponseWriter) {
 	defer GeoResp.Body.Close()
 	var lonlat LongLat
 	json.NewDecoder(GeoResp.Body).Decode(&lonlat)
+
+//	folonlat.Results.)
 
 	
 }
