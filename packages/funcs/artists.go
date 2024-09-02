@@ -194,7 +194,7 @@ func GeocodeLocations(l string, w http.ResponseWriter) {
 	var lonlat LongLat
 	json.NewDecoder(GeoResp.Body).Decode(&lonlat)
 
-//	folonlat.Results.)
+	
 
 	
 }
