@@ -7,10 +7,10 @@ body {
     font-size: 30px;
     background-image: radial-gradient(circle, #000000 0%, #0f3300 100%);
 }
-@media (min-width: 769px) {
+
+
+@media (min-width: 1150px) {
     
-
-
 
 .detailsContainer {
 
@@ -56,7 +56,7 @@ body {
     margin-top: 20px;
 }
 .button-section button {
-    background-color: #35ff03;
+    background-color: #fff;
     color: #000000;
     border: none;
     padding: 10px 20px;
@@ -65,10 +65,71 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .button-section button:hover {
     background-color: #eeeeee;
 }
 
+}
+
+@media (min-width: 769px) and (max-width: 1150px) {
+
+   
+    .detailsContainer {
+
+        text-align: center;
+        margin: 20px;
+        color: #000000;
+    }
+    
+    .details-section {
+        flex-direction: column;
+        background: #35ff03; 
+        padding: 30px;
+        margin: 10px;
+        min-width: 300px;
+    
+    }
+    
+    .details-section li{
+        list-style-type: none;
+    
+    }
+    
+    
+    .details-section {
+        flex: 1 1 30%; /* Each details section takes up 30% of the container first 1 is for flex-grow and second id for flex-shrink*/
+    }
+    
+    
+    
+    .details-section h2 {
+        margin-bottom: 10px;
+    }
+    
+    .details-section p {
+        margin: 5px 0; /* Add margin between paragraphs */
+    }
+    
+    
+    .button-section {
+        text-align: center;
+        margin-top: 20px;
+    }
+    .button-section button {
+        background-color: #fff;
+        color: #000000;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .button-section button:hover {
+        background-color: #eeeeee;
+    }
+    
 }
 
 
