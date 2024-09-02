@@ -43,3 +43,13 @@ type Relation struct {
 	ID             int                 `json:"id"`
 	DatesLocations map[string][]string `json:"datesLocations"`
 }
+
+type LongLat struct {
+	Results []struct {
+
+		Formatted    string  `json:"formatted"`
+		Lon          float64 `json:"lon"`
+		Lat          float64 `json:"lat"`
+		
+	} `json:"results"`
+}

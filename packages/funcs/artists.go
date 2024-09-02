@@ -85,6 +85,7 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 		}
 
 		FetchArtistData(Id, w)
+
 	} else {
 		// Handle other routes as 404
 		renderErrorPage(w, http.StatusNotFound, "Page Not Found")
@@ -109,6 +110,16 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 	json.NewDecoder(LocoResponse.Body).Decode(&Artist[Id].Location)
 
 	defer LocoResponse.Body.Close()
+
+	for i, v := range Artist[Id].Location.Locations {
+
+		v = strings.Replace(v, "-", " ", -1)
+		v = strings.Replace(v, "_", " ", -1)
+
+		Artist[Id].Location.Locations[i] = v
+		GeocodeLocations(Artist[Id].Location.Locations[i], w)
+
+	}
 
 	// Dates
 
@@ -163,4 +174,25 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 	if err != nil {
 		http.Error(w, "Error rendering error page", http.StatusInternalServerError)
 	}
+}
+
+func GeocodeLocations(l string, w http.ResponseWriter) {
+	for _, v := range l {
+		if v == ' ' {
+			l = strings.Replace(l, string(v), "%20", -1)
+		}
+	}
+
+	GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + l + "&format=json&apiKey=ab95d9aafa1d45449323898be803875e"
+	GeoResp, err := http.Get(GeocodeApi)
+	if err != nil {
+		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+
+	defer GeoResp.Body.Close()
+	var lonlat LongLat
+	json.NewDecoder(GeoResp.Body).Decode(&lonlat)
+
+	
 }
