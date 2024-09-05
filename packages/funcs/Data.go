@@ -21,8 +21,9 @@ type Artists struct {
 	RelationsURL    string   `json:"relations"`
 	Num             int
 
-	Location Location
-	Date     Date
+	LongLat		
+	Location 
+	Date     
 	Relation
 }
 
@@ -48,8 +49,10 @@ type LongLat struct {
 	Results []struct {
 
 		City          string `json:"city"`
-		Lon          float64 `json:"lon"`
 		Lat          float64 `json:"lat"`
+		Lon          float64 `json:"lon"`
 		
 	} `json:"results"`
+	Both [][]float64	
 }
+var Lonlat LongLat

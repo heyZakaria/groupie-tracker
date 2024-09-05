@@ -1,86 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/packages/public/artist.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/packages/public/artist.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=New+Amsterdam&display=swap"
+      rel="stylesheet"
+    />
     <!-- CSS for map -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-    crossorigin=""/>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
     <!-- JS for map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
-    crossorigin=""></script>
-
-
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    
 
     <title>Hello Man!</title>
-</head>
-<body>
+  </head>
+  <body>
+        <div id="my-map">
+        </div>
 
-    <div id="my-map">
-        <script src="/packages/public/artist.js"></script> 
-    </div>
+        <script src="/packages/public/artist.js">
+        
+    
+        </script>  
+      <script>
+        // The "Both" data passed from Go
+        var latLonData = '{{.LongLat}}';
+      
+      // var coordinates = JSON.parse(latLonData);
+      for (let i = 0; i < 3 ; i++){
+
+        console.log("Coordinates:", latLonData);
+
+      } 
+      
+      
+        
+      </script>
 
 
-
-<div class="detailsContainer"> 
-       
-    <div class="details-section">
+    <div class="detailsContainer">
+      <div class="details-section">
         <div class="image-section">
-            <img src="{{.Image}}" alt="Image of {{.Name}}">
-        </div> 
-        <p><b></b> {{.Name}}</p><br>
+          <img src="{{.Image}}" alt="Image of {{.Name}}" />
+        </div>
+        <p><b></b> {{.Name}}</p>
+        <br />
         <b>Members:</b>
         <ul>
-            {{range .Members}}
-                <li><span>{{.}}</span></li>
-            {{end}}
+          {{range .Members}}
+          <li><span>{{.}}</span></li>
+          {{end}}
         </ul>
         <p><b>Creation Date:</b> {{.CreationDate}}</p>
         <p><b>First Album:</b> {{.FirstAlbum}}</p>
-    </div>
+      </div>
 
-    <div class="details-section">
+      <div class="details-section">
         <b>Locations:</b>
         <ul>
-            {{range .Location.Locations}}
-                <li><span>{{.}}</span></li>
-            {{end}}
-        </ul>    
+          {{range .Location.Locations}}
+          <li><span>{{.}}</span></li>
+          {{end}}
+        </ul>
         <b>Dates:</b>
         <ul>
-            {{range .Date.Dates}}
-                <li><span>{{.}}</span></li>
-            {{end}}
-        </ul>    
-    </div>
+          {{range .Date.Dates}}
+          <li><span>{{.}}</span></li>
+          {{end}}
+        </ul>
+      </div>
 
-    <div class="details-section">
-        <b>Realtions:</b><br>
+      <div class="details-section">
+        <b>Realtions:</b><br />
         {{range $location, $dates := .DatesLocations}}
-            <b>{{$location}}</b>
-            <ul>
-                {{range $dates}}
-                    <li>{{.}}</li>
-                {{end}}
-            </ul> 
+        <b>{{$location}}</b>
+        <ul>
+          {{range $dates}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
         {{end}}
+      </div>
     </div>
-</div>
 
-
-<!-- Move the form section here to the bottom of the container -->
-<div class="button-section">
-    <form action="/" method="GET">
+    <!-- Move the form section here to the bottom of the container -->
+    <div class="button-section">
+      <form action="/" method="GET">
         <button type="submit">Back To Home</button>
-    </form>
-</div>
-
-</body>
-
+      </form>
+    </div>
+  </body>
 </html>

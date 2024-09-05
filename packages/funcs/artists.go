@@ -117,10 +117,16 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 		v = strings.Replace(v, "_", " ", -1)
 
 		Artist[Id].Location.Locations[i] = v
-		GeocodeLocations(Artist[Id].Location.Locations[i], w)
 
 	}
-
+	
+	GeocodeLocations(Artist[Id].Location.Locations, w, Id)
+	/* jsonLatLon, err := json.Marshal(Artist[Id].LongLat.Both)
+	if err != nil {
+		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
+		return
+	}
+ */
 	// Dates
 
 	DatesURL := Artist[Id].ConcertDatesURL
@@ -129,6 +135,7 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	json.NewDecoder(DateResponse.Body).Decode(&Artist[Id].Date)
 
 	defer DateResponse.Body.Close()
@@ -151,6 +158,12 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
+	//fmt.Println(Lonlat.Both)
+
+	
+	//fmt.Println(jsonLatLon[len(jsonLatLon)-1])
+
+	
 
 	err = tmp.Execute(w, Artist[Id])
 	if err != nil {
@@ -176,25 +189,31 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 	}
 }
 
-func GeocodeLocations(l string, w http.ResponseWriter) {
+func GeocodeLocations(l []string, w http.ResponseWriter, id int) {
+	var co []float64
+
 	for _, v := range l {
-		if v == ' ' {
-			l = strings.Replace(l, string(v), "%20", -1)
+		i := 0
+
+		v = strings.ReplaceAll(v, " ", "%20")
+		GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + v + "&limit=1&format=json&apiKey=1ba7c108667243f0ba279f68c82e9b86"
+		GeoResp, err := http.Get(GeocodeApi)
+		if err != nil {
+			renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
 		}
+		defer GeoResp.Body.Close()
+		json.NewDecoder(GeoResp.Body).Decode(&Lonlat)
+
+		if len(Lonlat.Both) < len(l) {
+
+			co = append(co, Lonlat.Results[i].Lat)
+			co = append(co, Lonlat.Results[i].Lon)
+			Lonlat.Both = append(Lonlat.Both, co)
+			co = nil
+
+		}
+
 	}
 
-	GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + l + "&limit=1&format=json&apiKey=ab95d9aafa1d45449323898be803875e"
-	GeoResp, err := http.Get(GeocodeApi)
-	if err != nil {
-		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
-		return
-	}
-
-	defer GeoResp.Body.Close()
-	var lonlat LongLat
-	json.NewDecoder(GeoResp.Body).Decode(&lonlat)
-
-	
-
-	
+	// GeoResp.Body
 }

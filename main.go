@@ -15,7 +15,7 @@ func main() {
 	fmt.Println("http://localhost:3040")
 
 	Music.GetApi(api)
-	
+
 	dir := http.FileServer(http.Dir("packages/public"))
 
 	http.Handle("/packages/public/", http.StripPrefix("/packages/public/", dir))
