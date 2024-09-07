@@ -63,11 +63,11 @@ body {
     font-size: 16px;
     font-weight: 800;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.5s;
 }
 
 .button-section button:hover {
-    background-color: #eeeeee;
+    background-color: #35ff03;
 }
 
 }
@@ -124,10 +124,10 @@ body {
         font-size: 16px;
         font-weight: 800;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.5s;
     }
     .button-section button:hover {
-        background-color: #eeeeee;
+        background-color: #35ff03;
     }
     
 }

@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	Music "groupietracker/packages/funcs"
@@ -15,9 +16,13 @@ func main() {
 	fmt.Println("http://localhost:3040")
 
 	Music.GetApi(api)
+
 	http.HandleFunc("/packages/public/", Music.SetupStaticFilesHandlers)
-	
+
 	http.HandleFunc("/", Music.GetArtists)
 
-	http.ListenAndServe(":3040", nil)
+	err := http.ListenAndServe(":3040", nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
