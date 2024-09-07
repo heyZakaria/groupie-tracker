@@ -15,11 +15,8 @@ func main() {
 	fmt.Println("http://localhost:3040")
 
 	Music.GetApi(api)
+	http.HandleFunc("/packages/public/", Music.SetupStaticFilesHandlers)
 	
-	dir := http.FileServer(http.Dir("packages/public"))
-
-	http.Handle("/packages/public/", http.StripPrefix("/packages/public/", dir))
-
 	http.HandleFunc("/", Music.GetArtists)
 
 	http.ListenAndServe(":3040", nil)

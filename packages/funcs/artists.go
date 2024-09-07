@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"text/template"
@@ -23,6 +24,7 @@ func GetApi(api string) {
 	}
 	// decode the data from json type to something readable by go
 	json.NewDecoder(response.Body).Decode(&Urls)
+
 	defer response.Body.Close() // Closes Resources: avoid memory leaks
 }
 
@@ -72,7 +74,7 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 		}
 	} else if strings.Contains(r.URL.Path, "/artist/") {
 		// Handle artist-specific page
-		StrId := r.URL.Path[len("/artist/"):]
+		StrId := r.URL.Path[8:]
 
 		Id, err := strconv.Atoi(StrId)
 		if err != nil {
@@ -93,12 +95,12 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 }
 
 func FetchArtistData(Id int, w http.ResponseWriter) {
-	for _, v := range Artist {
-		if v.ID == Id {
-			Id -= 1
-			Artist[Id] = v
-		}
-	}
+	for _, artist := range Artist {
+        if artist.ID == Id {
+            Id = artist.ID - 1
+            break
+        }
+    }
 
 	LocoURL := Artist[Id].LocationsURL
 
@@ -162,5 +164,16 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 	err = tmpl.Execute(w, errorData)
 	if err != nil {
 		http.Error(w, "Error rendering error page", http.StatusInternalServerError)
+	}
+}
+
+func SetupStaticFilesHandlers(w http.ResponseWriter, r *http.Request) {
+	// get the endpoint file infos: name size adress...
+	fileinfo, err := os.Stat("." + r.URL.Path)
+	if !os.IsNotExist(err) && !fileinfo.IsDir() {
+		http.StripPrefix("/packages/public/", http.FileServer(http.Dir("packages/public"))).ServeHTTP(w, r)
+	} else {
+		renderErrorPage(w, http.StatusNotFound, "What are you doing here!")
+		return
 	}
 }
