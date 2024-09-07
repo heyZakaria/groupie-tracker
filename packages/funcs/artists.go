@@ -95,12 +95,7 @@ func GetArtists(w http.ResponseWriter, r *http.Request) {
 }
 
 func FetchArtistData(Id int, w http.ResponseWriter) {
-	for _, artist := range Artist {
-        if artist.ID == Id {
-            Id = artist.ID - 1
-            break
-        }
-    }
+	Id -= 1
 
 	LocoURL := Artist[Id].LocationsURL
 
@@ -168,8 +163,7 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 }
 
 func SetupStaticFilesHandlers(w http.ResponseWriter, r *http.Request) {
-	// get the endpoint file infos: name size adress...
-	fileinfo, err := os.Stat("." + r.URL.Path)
+	fileinfo, err := os.Stat("." + r.URL.Path) // get the endpoint file infos: name size adress...
 	if !os.IsNotExist(err) && !fileinfo.IsDir() {
 		http.StripPrefix("/packages/public/", http.FileServer(http.Dir("packages/public"))).ServeHTTP(w, r)
 	} else {
