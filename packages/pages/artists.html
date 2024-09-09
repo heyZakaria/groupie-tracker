@@ -23,33 +23,26 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
-    
 
     <title>Hello Man!</title>
   </head>
   <body>
-        <div id="my-map">
-        </div>
+    <div id="my-map"></div>
 
-        <script src="/packages/public/artist.js">
-        
-    
-        </script>  
-      <script>
-        // The "Both" data passed from Go
-        var latLonData = '{{.LongLat}}';
-      
-      // var coordinates = JSON.parse(latLonData);
-      for (let i = 0; i < 3 ; i++){
+    <script src="/packages/public/artist.js">
 
-        console.log("Coordinates:", latLonData);
-
-      } 
+     
       
       
-        
       </script>
-
+  <script>
+     // The "Both" data passed from Go
+     var latLonData = ["{{range .LongLat.Both}}", "{{.}}", "{{end}}"];
+      
+      console.log(latLonData)
+      
+   
+  </script>
 
     <div class="detailsContainer">
       <div class="details-section">

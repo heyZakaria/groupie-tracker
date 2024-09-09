@@ -119,14 +119,25 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 		Artist[Id].Location.Locations[i] = v
 
 	}
-	
-	GeocodeLocations(Artist[Id].Location.Locations, w, Id)
+
+	Artist[Id].Both = GeocodeLocations(
+		Artist[Id].Location.Locations,
+		w,
+		Id,
+		Artist[Id].Both,
+		Artist[Id].LongLat)
+
+
+		/* w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(Artist[Id].Both)
+ */
+
 	/* jsonLatLon, err := json.Marshal(Artist[Id].LongLat.Both)
 	if err != nil {
 		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
 		return
-	}
- */
+		}
+	*/
 	// Dates
 
 	DatesURL := Artist[Id].ConcertDatesURL
@@ -158,11 +169,6 @@ func FetchArtistData(Id int, w http.ResponseWriter) {
 		renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
 		return
 	}
-	//fmt.Println(Lonlat.Both)
-
-	
-	//fmt.Println(jsonLatLon[len(jsonLatLon)-1])
-
 	
 
 	err = tmp.Execute(w, Artist[Id])
@@ -189,31 +195,35 @@ func renderErrorPage(w http.ResponseWriter, statusCode int, message string) {
 	}
 }
 
-func GeocodeLocations(l []string, w http.ResponseWriter, id int) {
-	var co []float64
+func GeocodeLocations(loco []string, w http.ResponseWriter, id int, both [][]float64, long LongLat) [][]float64 {
+	var hold []float64
 
-	for _, v := range l {
+	for _, v := range loco {
 		i := 0
 
 		v = strings.ReplaceAll(v, " ", "%20")
 		GeocodeApi := "https://api.geoapify.com/v1/geocode/search?text=" + v + "&limit=1&format=json&apiKey=1ba7c108667243f0ba279f68c82e9b86"
 		GeoResp, err := http.Get(GeocodeApi)
-		if err != nil {
-			renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
-		}
+		 if err != nil {
+		 	renderErrorPage(w, http.StatusInternalServerError, "Internal Server Error")
+
+		 }
 		defer GeoResp.Body.Close()
-		json.NewDecoder(GeoResp.Body).Decode(&Lonlat)
+		json.NewDecoder(GeoResp.Body).Decode(&long)
 
-		if len(Lonlat.Both) < len(l) {
+		if len(both) < len(loco) {
 
-			co = append(co, Lonlat.Results[i].Lat)
-			co = append(co, Lonlat.Results[i].Lon)
-			Lonlat.Both = append(Lonlat.Both, co)
-			co = nil
+			hold = append(hold, long.Results[i].Lat)
+
+
+			hold = append(hold, long.Results[i].Lon)
+
+			both = append(both, hold)
+			hold = nil
 
 		}
 
 	}
-
-	// GeoResp.Body
+	return both
+	
 }

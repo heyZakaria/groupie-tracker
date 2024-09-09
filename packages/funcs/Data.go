@@ -23,8 +23,8 @@ type Artists struct {
 
 	LongLat		
 	Location 
-	Date     
-	Relation
+	Date     Date
+	Relation Relation
 }
 
 var Artist []Artists
