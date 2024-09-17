@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/home.css">
+
+    <title>Artists and Upcoming Events</title>
+</head>
+
+<body>
+  
+    <h1>Explore Artists, Events, and Tour Dates</h1>
+
+   
+    <div class="container">
+        
+        {{range .}}
+            
+            <div class="box"> 
+            
+                <a href="/artist?id={{.ID}}" class="artist-link">
+
+                    <p>
+                        <b>{{.Name}}</b>
+                    </p>
+
+                    <p><img src="{{.Image}}" alt="image of {{.Name}}"></p>
+
+                    <p>
+                        <b>Creation date:</b> {{.CreationDate}}<br>
+                    </p> 
+        
+            </div>
+  
+        {{end}}
+     
+
+    </div>
+
+</body>
+
+</html>

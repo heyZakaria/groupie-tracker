@@ -1,0 +1,88 @@
+/* General body styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Alternative styling for the main heading */
+h1 {
+    font-size: 2.8em;
+    text-align: center;
+    color: #2c3e50;
+    margin: 20px 0;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-bottom: 4px solid #3498db;
+    padding-bottom: 10px;
+}
+/* Media query for devices with width <= 432px */
+@media (max-width: 432px) {
+    h1 {
+        font-size: 1.8em; /* Adjust the font size */
+    }
+}
+
+h2 {
+    font-size: 2em;
+    text-align: center;
+    color: #333;
+}
+
+/* Container for the artist cards */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+    justify-content: center;
+    padding: 20px;
+    width: auto;
+}
+
+/* Box styling for each artist card */
+.box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    padding: 15px;
+    margin-top: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.box:hover {
+    transform: translateY(-10px);
+}
+
+/* Styling for the artist links */
+.artist-link {
+    text-decoration: none;
+    color: #333;
+}
+
+/* Text styling inside each card */
+.box p {
+    margin: 10px 0;
+}
+
+/* Image styling for the artist image */
+.box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Bold text for artist names and labels */
+.box b {
+    font-weight: bold;
+    color: #555;
+}
